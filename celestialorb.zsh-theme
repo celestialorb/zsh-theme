@@ -110,6 +110,10 @@ prompt_kubectl() {
   if [[ -n "$KUBECONFIG" ]]; then
 		prompt_segment cyan $PRIMARY_FG
 		print -n " $GEAR $(basename $KUBECONFIG) "
+
+		if [[ -n "$KUBENS" ]]; then
+			print -n "[$KUBENS] "
+		fi
 	fi
 }
 
