@@ -109,7 +109,7 @@ prompt_git() {
 prompt_kubectl() {
   if [[ -n "$KUBECONFIG" ]]; then
 		prompt_segment cyan $PRIMARY_FG
-		print -n " $(basename $KUBECONFIG) "
+		print -n " $GEAR $(basename $KUBECONFIG) "
 	fi
 }
 
