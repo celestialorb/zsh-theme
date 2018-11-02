@@ -105,6 +105,14 @@ prompt_git() {
   fi
 }
 
+# Kubectl: Kubernetes cluster configuration, if any
+prompt_kubectl() {
+  if [[ -n "$KUBECONFIG" ]]; then
+		prompt_segment cyan $PRIMARY_FG
+		print -n " $(basename $KUBECONFIG) "
+	fi
+}
+
 # Dir: current working directory
 prompt_dir() {
   prompt_segment blue $PRIMARY_FG " $(basename $(pwd)) "
@@ -151,6 +159,7 @@ prompt_agnoster_main() {
   prompt_status
   prompt_dir
   prompt_aws
+	prompt_kubectl
   prompt_git
   prompt_end
 }
