@@ -63,9 +63,8 @@ prompt_end() {
   else
     print -n "%{%k%}"
   fi
-  print -n "%{%f%}"
+  print -n "\n%{%f%}"
   CURRENT_BG=''
-  print "\n"
 }
 
 ### Prompt components
