@@ -159,11 +159,15 @@ prompt_virtualenv() {
 prompt_agnoster_main() {
   RETVAL=$?
   CURRENT_BG='NONE'
+  TRIGGER_WIDTH=${ZSH_TRIGGER_WIDTH:-100}
   prompt_status
   prompt_dir
-  prompt_aws
-	prompt_kubectl
-  prompt_git
+
+  if [[ $(tput cols) -ge ${TRIGGER_WIDTH} ]]; then
+    prompt_aws
+    prompt_kubectl
+    prompt_git
+  fi
   prompt_end
 }
 
