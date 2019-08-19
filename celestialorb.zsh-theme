@@ -63,9 +63,8 @@ prompt_end() {
   else
     print -n "%{%k%}"
   fi
-  print -n "%{%f%}"
+  print -n "\n%{%f%}"
   CURRENT_BG=''
-  print "\n"
 }
 
 ### Prompt components
@@ -103,6 +102,18 @@ prompt_git() {
     prompt_segment $color $PRIMARY_FG
     print -n " $ref"
   fi
+}
+
+# Kubectl: Kubernetes cluster configuration, if any
+prompt_kubectl() {
+  if [[ -n "$KUBECONFIG" ]]; then
+		prompt_segment cyan $PRIMARY_FG
+		print -n " $GEAR $(basename $KUBECONFIG) "
+
+		if [[ -n "$KUBENS" ]]; then
+			print -n "[$KUBENS] "
+		fi
+	fi
 }
 
 # Dir: current working directory
@@ -148,10 +159,15 @@ prompt_virtualenv() {
 prompt_agnoster_main() {
   RETVAL=$?
   CURRENT_BG='NONE'
+  TRIGGER_WIDTH=${ZSH_TRIGGER_WIDTH:-100}
   prompt_status
   prompt_dir
-  prompt_aws
-  prompt_git
+
+  if [[ $(tput cols) -ge ${TRIGGER_WIDTH} ]]; then
+    prompt_aws
+    prompt_kubectl
+    prompt_git
+  fi
   prompt_end
 }
 
