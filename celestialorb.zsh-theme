@@ -166,8 +166,8 @@ prompt_agnoster_main() {
   if [[ $(tput cols) -ge ${TRIGGER_WIDTH} ]]; then
     prompt_aws
     prompt_kubectl
-    prompt_git
   fi
+  prompt_git
   prompt_end
 }
 
